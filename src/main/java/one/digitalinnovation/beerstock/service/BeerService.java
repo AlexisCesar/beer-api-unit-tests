@@ -69,4 +69,11 @@ public class BeerService {
         }
         throw new BeerStockExceededException(id, quantityToIncrement);
     }
+
+	public BeerDTO erase(Long id) throws BeerNotFoundException {
+		Beer beerToEraseStock = verifyIfExists(id);
+		beerToEraseStock.setQuantity(0);
+		Beer erasedStockBeer = beerRepository.save(beerToEraseStock);
+		return beerMapper.toDTO(erasedStockBeer);
+	}
 }
